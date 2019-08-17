@@ -29,6 +29,20 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.get('/:id/resources', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const resources = await Projects.findResourceById(id);
+        if (resources) {
+            res.json(resources);
+        } else {
+            res.status(404).json({ message: 'Could not find those resources' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to get resources' });
+    }
+});
+
 router.get('/:id/tasks', async (req, res) => {
     const { id } = req.params;
 

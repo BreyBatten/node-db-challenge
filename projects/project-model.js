@@ -3,8 +3,9 @@ const db = require('../data/db-config');
 module.exports = {
     find,
     findById,
+    findResourceById,
     findTasks,
-    add
+    add,
 }
 
 function find() {
@@ -13,6 +14,12 @@ function find() {
 
 function findById(id) {
     return db('projects')
+        .where({id})
+        .first();
+}
+
+function findResourceById(id) {
+    return db('resources')
         .where({id})
         .first();
 }
