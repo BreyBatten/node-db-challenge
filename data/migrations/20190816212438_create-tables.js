@@ -17,7 +17,7 @@ exports.up = function(knex) {
         tbl.integer('project_id')
             .unsigned()
             .notNullable()
-            .references('id')
+            .references('project_id')
             .inTable('projects');
     })
     .createTable('resources', tbl => {

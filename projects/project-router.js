@@ -7,7 +7,12 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try{
-        const projects = await Projects.find();
+        const projects = (await Projects.find()).map(project => {
+            return {
+                ...project,
+                completed: project.completed === 0 ? false : true
+            }
+        })
         res.status(200).json(projects);
     } catch (error) {
         res.status(500).json(error);
@@ -47,7 +52,12 @@ router.get('/:id/tasks', async (req, res) => {
     const { id } = req.params;
 
     try {
-        const tasks = await Projects.findTasks(id);
+        const tasks = (await Projects.findTasks(id)).map(task => {
+            return {
+                ...task,
+                completed: task.completed === 0 ? false : true
+            }
+        })
         if (tasks) {
             res.json(tasks);
         } else {
